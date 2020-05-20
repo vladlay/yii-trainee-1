@@ -26,9 +26,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return 'categories';
     }
-    /**
-     * метод получения автоматического заполнения двух полей 'created_at', 'updated_at'
-     */
+  
     public function behaviors()
     {
         return [
