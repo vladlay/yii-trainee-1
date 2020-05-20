@@ -26,6 +26,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return 'categories';
     }
+  
     public function behaviors()
     {
         return [
@@ -68,6 +69,9 @@ class Categories extends \yii\db\ActiveRecord
      * Gets query for [[Elements]].
      *
      * @return \yii\db\ActiveQuery
+     */
+    /**
+     * метод для связи таблицы categories и element
      */
     public function getElements()
     {

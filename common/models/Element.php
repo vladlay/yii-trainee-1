@@ -66,6 +66,9 @@ class Element extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+    /**
+     * метод для связи таблицы categories и element
+     */
     public function getCategory()
     {
         return $this->hasOne(Categories::className(), ['id' => 'category_id']);
