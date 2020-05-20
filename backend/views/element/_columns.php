@@ -1,8 +1,11 @@
 <?php
+
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use common\models\Categories;
 use common\models\Element;
+use yii\helpers\StringHelper;
+
 
 return [
     [
@@ -36,6 +39,9 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'description',
+        'value' => function ($model) {
+            return StringHelper::truncate($model->description, 10);
+        }
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
