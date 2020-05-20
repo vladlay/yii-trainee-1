@@ -1,13 +1,11 @@
 <?php
 
 namespace common\models;
-
-use Yii;
-use yii\db\Expression;
-use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
-
+use yii\db\ActiveRecord;
+use Yii;
 
 /**
  * This is the model class for table "categories".
@@ -28,7 +26,6 @@ class Categories extends \yii\db\ActiveRecord
     {
         return 'categories';
     }
-
     public function behaviors()
     {
         return [
@@ -63,7 +60,7 @@ class Categories extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'updated_at' => 'Последнее изменение',
         ];
     }
 
@@ -76,17 +73,4 @@ class Categories extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Element::className(), ['category_id' => 'id']);
     }
-    public function getNames()
-    {
-        $names = Categories::find()
-            ->select('name')
-            // ->from('categories')
-            ->all();
-            $res = [];
-            foreach ($names as $name) {
-                $res[] = $name->name;
-            }
-        return $res;
-    }
-    
 }

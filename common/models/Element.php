@@ -3,9 +3,6 @@
 namespace common\models;
 
 use Yii;
-use yii\db\Expression;
-use yii\db\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "element".
@@ -13,11 +10,11 @@ use yii\behaviors\TimestampBehavior;
  * @property int $id
  * @property string $name
  * @property int $category_id
- * @property string $description
+ * @property string $describ
  * @property float $param_done
  * @property float $param_all
  * @property int $created_at
- * @property int $updated_at
+ * @property int $update_at
  *
  * @property Categories $category
  */
@@ -31,28 +28,15 @@ class Element extends \yii\db\ActiveRecord
         return 'element';
     }
 
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['name', 'category_id', 'description', 'param_done', 'param_all'], 'required'],
-            [['category_id', 'created_at', 'updated_at'], 'integer'],
-            [['description'], 'string'],
+            [['name', 'category_id', 'describ', 'param_done', 'param_all', 'created_at', 'update_at'], 'required'],
+            [['category_id', 'created_at', 'update_at'], 'integer'],
+            [['describ'], 'string'],
             [['param_done', 'param_all'], 'number'],
             [['name'], 'string', 'max' => 512],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -68,12 +52,12 @@ class Element extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'category_id' => 'Category ID',
-            'description' => 'Description',
+            'describ' => 'Describ',
             'param_done' => 'Param Done',
             'param_all' => 'Param All',
             'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'category.name' => 'Категория',
+            'update_at' => 'Update At',
+            'category.name'=>'Категория'
         ];
     }
 
@@ -86,37 +70,4 @@ class Element extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Categories::className(), ['id' => 'category_id']);
     }
-
-    public function getCategoriesList() {
-        return ArrayHelper::map(Categories::find()->all(), 'id', 'name');
-    }
-
-    // public function getCategoriesNames()
-    // {
-    //     $cat_names = Element::find()
-    //         ->select('element.category_id', 'categories.name')
-    //         ->joinWith('categories')
-    //         ->all();
-    //     return $cat_names;
-    // }
 }
-// $names = Categories::find()
-//             ->select('name')
-//             // ->from('categories')
-//             ->all();
-//             $res = [];
-//             foreach ($names as $name) {
-//                 $res[] = $name->name;
-//             }
-//         return $res;
-//     }
-
-// [
-//     'catehory_id' => 'categories.name'
-// ]
-// [
-//     'id' => 'name'
-// ]
-// [
-//     'categories.name' => 'catehory_id'
-// ]

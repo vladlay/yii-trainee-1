@@ -13,7 +13,6 @@ use common\models\Categories;
 class CategoriesSearch extends Categories
 {
     public $date_to;
-
     /**
      * @inheritdoc
      */
@@ -21,11 +20,10 @@ class CategoriesSearch extends Categories
     {
         return [
             [['id', 'created_at'], 'integer'],
-            [['name', 'updated_at', 'date_to'], 'safe'],
+            [['name','updated_at','date_to'], 'safe'],
         ];
     }
 
-    
     /**
      * @inheritdoc
      */
@@ -55,7 +53,7 @@ class CategoriesSearch extends Categories
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
-            return $dataProvider;   
+            return $dataProvider;
         }
 
         $query->andFilterWhere([
@@ -65,14 +63,14 @@ class CategoriesSearch extends Categories
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
-
-        if ($this->date_to) {
+        if($this->date_to){
             $query->andFilterWhere([
                 '<=', 
                 'updated_at', 
-                strtotime(str_replace('.', '/', $this->date_to)),
+                strtotime(str_replace('.','/',$this->date_to)),
             ]);
         }
+       
 
         return $dataProvider;
     }

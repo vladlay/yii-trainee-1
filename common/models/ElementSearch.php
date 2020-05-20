@@ -18,8 +18,8 @@ class ElementSearch extends Element
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'description', 'category_id'], 'safe'],
+            [['id', 'category_id', 'created_at', 'update_at'], 'integer'],
+            [['name', 'describ'], 'safe'],
             [['param_done', 'param_all'], 'number'],
         ];
     }
@@ -43,7 +43,6 @@ class ElementSearch extends Element
     public function search($params)
     {
         $query = Element::find();
-        // $query = Element::find()->joinWith('category');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -60,16 +59,14 @@ class ElementSearch extends Element
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
-            // 'categories.name' => $this->category_id,
             'param_done' => $this->param_done,
             'param_all' => $this->param_all,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'update_at' => $this->update_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
-            // ->andFilterWhere(['like', 'categories.name', $this->name]);
+            ->andFilterWhere(['like', 'describ', $this->describ]);
 
         return $dataProvider;
     }
