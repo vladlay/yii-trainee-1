@@ -30,11 +30,9 @@ return [
         'label' => 'Категория',
         'attribute' =>'category_id',
         'value' => 'category.name',
-        // 'filter' => [1,2,3,4,777 => 777,6,7],
-        // 'filter' => ArrayHelper::map(Categories::find()->all(), 'id', 'name'),
+       
         'filter' => 'categoriesList',
-        // 'filter' => \common\models\Categories::getNames(),
-        // 'filter' => ArrayHelper::map(Categories::findAll(), 'id', 'name'),
+       
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
