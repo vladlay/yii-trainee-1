@@ -45,7 +45,6 @@ class ElementSearch extends Element
     public function search($params)
     {
         $query = Element::find();
-        // $query = Element::find()->joinWith('category');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,9 +63,9 @@ class ElementSearch extends Element
             'category_id' => $this->category_id,
             // 'categories.name' => $this->category_id,
             // 'param_done' => $this->param_done,
-            'param_all' => $this->param_all,
+            // 'param_all' => $this->param_all,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'update_at' => $this->update_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

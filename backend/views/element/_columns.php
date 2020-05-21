@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 use common\models\Element;
 use yii\bootstrap\Progress;
@@ -6,8 +7,6 @@ use yii\helpers\ArrayHelper;
 use common\models\Categories;
 use \yii\helpers\StringHelper;
 use kartik\datetime\DateTimePicker;
-
-
 
 
 return [
@@ -36,7 +35,6 @@ return [
     ],
     [
         'class' => '\kartik\grid\DataColumn',
-
         'attribute' => 'description',
         'value' => function ($model) {
             return StringHelper::truncate($model->description, 10);
