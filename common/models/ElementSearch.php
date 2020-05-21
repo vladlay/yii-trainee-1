@@ -65,7 +65,7 @@ class ElementSearch extends Element
             // 'param_done' => $this->param_done,
             // 'param_all' => $this->param_all,
             'created_at' => $this->created_at,
-            'update_at' => $this->update_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

@@ -77,4 +77,9 @@ class Element extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Categories::className(), ['id' => 'category_id']);
     }
+
+    public function getCategoriesList()
+    {
+        return  ArrayHelper::map(Categories::find()->all(),'id','name');
+    }
 }
