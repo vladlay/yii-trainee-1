@@ -1,8 +1,11 @@
 <?php
+
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use common\models\Categories;
 use common\models\Element;
+use yii\helpers\StringHelper;
+
 
 return [
     [
@@ -27,15 +30,16 @@ return [
         'label' => 'Категория',
         'attribute' =>'category_id',
         'value' => 'category.name',
-        // 'filter' => [1,2,3,4,777 => 777,6,7],
-        // 'filter' => ArrayHelper::map(Categories::find()->all(), 'id', 'name'),
+       
         'filter' => 'categoriesList',
-        // 'filter' => \common\models\Categories::getNames(),
-        // 'filter' => ArrayHelper::map(Categories::findAll(), 'id', 'name'),
+       
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'description',
+        'value' => function ($model) {
+            return StringHelper::truncate($model->description, 10);
+        }
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
