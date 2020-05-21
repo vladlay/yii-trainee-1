@@ -40,10 +40,12 @@ class ElementController extends Controller
     {    
         $searchModel = new ElementSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $categoryList = Element::getCategoriesList();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categoryList' => $categoryList,
         ]);
     }
 
@@ -82,7 +84,8 @@ class ElementController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Element();  
+        $model = new Element();
+        $categoryList = Element::getCategoriesList();
 
         if($request->isAjax){
             /*
@@ -94,6 +97,7 @@ class ElementController extends Controller
                     'title'=> "Create new Element",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'categoryList' => $categoryList,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
@@ -101,6 +105,7 @@ class ElementController extends Controller
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
+                    'categoryList' => $categoryList,
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new Element",
                     'content'=>'<span class="text-success">Create Element success</span>',
@@ -113,6 +118,7 @@ class ElementController extends Controller
                     'title'=> "Create new Element",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
+                        'categoryList' => $categoryList,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
@@ -128,6 +134,7 @@ class ElementController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'categoryList' => $categoryList,
                 ]);
             }
         }

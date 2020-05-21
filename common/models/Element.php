@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\Expression;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -51,10 +52,10 @@ class Element extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'category_id', 'description', 'param_done', 'param_all'], 'required'],
+            [['name', 'description'], 'string', 'max' => 512],
             [['category_id', 'created_at', 'updated_at'], 'integer'],
-            [['description'], 'string'],
             [['param_done', 'param_all'], 'number'],
-            [['name'], 'string', 'max' => 512],
+            ['param_done', 'compare', 'compareAttribute' => 'param_all', 'operator' => '<=', 'type' => 'number'],            
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
