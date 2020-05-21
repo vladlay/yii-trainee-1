@@ -10,5 +10,6 @@ use yii\helpers\Html;
 <div class="element-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'categoryList' => $categoryList,
     ]) ?>
 </div>

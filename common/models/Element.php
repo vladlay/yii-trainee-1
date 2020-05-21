@@ -3,6 +3,10 @@
 namespace common\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "element".
@@ -34,11 +38,11 @@ class Element extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'category_id', 'describ', 'param_done', 'param_all', 'created_at', 'update_at'], 'required'],
-            [['category_id', 'created_at', 'update_at'], 'integer'],
-            [['describ'], 'string'],
+            [['name', 'category_id', 'description', 'param_done', 'param_all'], 'required'],
+            [['name', 'description'], 'string', 'max' => 512],
+            [['category_id', 'created_at', 'updated_at'], 'integer'],
             [['param_done', 'param_all'], 'number'],
-            [['name'], 'string', 'max' => 512],
+            ['param_done', 'compare', 'compareAttribute' => 'param_all', 'operator' => '<=', 'type' => 'number'],            
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
     }

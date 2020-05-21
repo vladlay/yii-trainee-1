@@ -22,9 +22,13 @@ CrudAsset::register($this);
 <div class="element-index">
 <h3>
 <?php 
-echo '<pre>';
-print_r($searchModel);
-echo '</pre>';
+// echo '<pre>';
+// print_r($dataProvider->getModels()[0]->name);
+// echo '</pre>';
+
+
+
+
 ?>
 </h3>
     <div id="ajaxCrudDatatable">

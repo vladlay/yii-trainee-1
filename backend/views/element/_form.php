@@ -1,10 +1,14 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\models\Categories;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Element */
 /* @var $form yii\widgets\ActiveForm */
+
+// $form->field($model, 'category_id')->textInput()
 ?>
 
 <div class="element-form">
@@ -13,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropDownList($categoryList) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 

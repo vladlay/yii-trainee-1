@@ -12,14 +12,16 @@ use common\models\Element;
  */
 class ElementSearch extends Element
 {
+    public $date_to;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'category_id', 'created_at', 'update_at'], 'integer'],
-            [['name', 'describ'], 'safe'],
+            [['id', 'created_at'], 'integer'],
+            [['name', 'description', 'category_id', 'date_to'], 'safe'],
             [['param_done', 'param_all'], 'number'],
         ];
     }
@@ -59,14 +61,26 @@ class ElementSearch extends Element
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
-            'param_done' => $this->param_done,
-            'param_all' => $this->param_all,
+            // 'categories.name' => $this->category_id,
+            // 'param_done' => $this->param_done,
+            // 'param_all' => $this->param_all,
             'created_at' => $this->created_at,
             'update_at' => $this->update_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'describ', $this->describ]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['>=', 'param_done', $this->param_done]);
+            // ->andFilterWhere(['like', 'description', $this->description]);
+            // ->andFilterWhere(['like', 'categories.name', $this->name]);
+
+        if ($this->date_to) {
+            $query->andFilterWhere([
+                '<=', 
+                'updated_at', 
+                strtotime(str_replace('.', '/', $this->date_to)),
+            ]);
+        }
 
         return $dataProvider;
     }
